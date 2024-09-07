@@ -33,16 +33,4 @@ export default StyleSheet.create({
     fontSize: 12,
     color: "white",
   },
-  tabContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 8,
-    marginVertical: 24,
-  },
-  weatherItemsContainer: {
-    flexDirection: "row",
-    paddingHorizontal: 16,
-    marginBottom: 16,
-    gap: 12,
-  },
 });

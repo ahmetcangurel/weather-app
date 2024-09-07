@@ -5,8 +5,6 @@ import {
   SafeAreaView,
   ScrollView,
   RefreshControl,
-  FlatList,
-  Dimensions,
   Animated,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -20,26 +18,19 @@ import { IconType } from "../../types";
 // Components
 import SvgLocation from "../../Components/icons/Location";
 import CurrentWeather from "../../Components/CurrentWeather";
-import TabItem from "../../Components/TabItem";
-import WeatherItem from "../../Components/WeatherItem";
 import ModalView from "../../Components/ModalView";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import SvgArrowUp from "../../Components/icons/ArrowUp";
-import SvgArrowDown from "../../Components/icons/ArrowDown";
-import WeatherInfoItem from "../../Components/WeatherInfoItem";
-import CurvedLine from "../../Components/CurvedLine";
+import WeatherItemList from "../../Components/WeatherItemList";
+import {
+  CloseCaseContent,
+  OpenCaseContent,
+} from "../../Components/BottomSheetContents";
+import TabList from "../../Components/TabList";
 
 const HomeScreen = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("Daily");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const contentOpacity = useRef(new Animated.Value(1)).current;
-
-  const tabs: string[] = ["Daily", "Weekly"];
-
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-  };
 
   const weatherList: {
     title: string;
@@ -145,74 +136,18 @@ const HomeScreen = () => {
               {/* Weather - END */}
 
               {/* Tab - START */}
-              <View style={styles.tabContainer}>
-                {tabs.map((tab, index) => (
-                  <TabItem
-                    key={index}
-                    title={tab}
-                    isActive={activeTab === tab}
-                    onPress={() => handleTabChange(tab)}
-                  />
-                ))}
-              </View>
+              <TabList activeTab={activeTab} setActiveTab={setActiveTab} />
               {/* Tab - END */}
 
               {/* Weather Items - START */}
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.weatherItemsContainer}
-                data={weatherList}
-                keyExtractor={(_, index) => index.toString()}
-                renderItem={({ item }) => (
-                  <WeatherItem
-                    title={item.title}
-                    icon={item.icon}
-                    temperature={item.temperature}
-                    isActive={item.isActive}
-                  />
-                )}
-              />
+              <WeatherItemList list={weatherList} />
               {/* Weather Items - END */}
             </Animated.View>
           </ScrollView>
 
           {/* Bottom Sheet - START */}
           <ModalView isOpen={isOpen} setIsOpen={setIsOpen}>
-            {isOpen ? (
-              <View>
-                <CurvedLine
-                  percentage={30}
-                  sunriseTime="06:04 AM"
-                  sunsetTime="05:51 PM"
-                />
-              </View>
-            ) : (
-              <>
-                <WeatherInfoItem
-                  icon="sunset"
-                  sectionData={[
-                    {
-                      title: "Sunset",
-                      subtitle: "5:51 PM",
-                    },
-                    {
-                      title: "Sunsire",
-                      subtitle: "7:00 AM",
-                    },
-                  ]}
-                />
-                <WeatherInfoItem
-                  icon="sunny"
-                  sectionData={[
-                    {
-                      title: "UV Index",
-                      subtitle: "1 Low",
-                    },
-                  ]}
-                />
-              </>
-            )}
+            {isOpen ? <OpenCaseContent /> : <CloseCaseContent />}
           </ModalView>
           {/* Bottom Sheet - END */}
         </SafeAreaView>
