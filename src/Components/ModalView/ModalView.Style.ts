@@ -26,7 +26,6 @@ export default StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: "center",
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    paddingVertical: 20, 
   },
 });

@@ -1,14 +1,10 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef } from "react";
 import {
   View,
-  Text,
   Animated,
-  Dimensions,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
 // Styles
 import styles from "./ModalView.Style";

@@ -1,11 +1,12 @@
 import React from "react";
+import { StyleSheet, View } from "react-native";
 
 // Components
 import WeatherInfoItem from "../WeatherInfoItem";
 
 const CloseCaseContent = () => {
   return (
-    <>
+    <View style={styles.container}>
       <WeatherInfoItem
         icon="sunset"
         sectionData={[
@@ -28,8 +29,14 @@ const CloseCaseContent = () => {
           },
         ]}
       />
-    </>
+    </View>
   );
 };
 
 export default CloseCaseContent;
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+  },
+});
